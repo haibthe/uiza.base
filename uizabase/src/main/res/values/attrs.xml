@@ -569,7 +569,7 @@
     </declare-styleable>-->
 
     <declare-styleable name="FixedAspectRatio">
-        <attr name="aspectRatio" format="fraction" />
+        <attr name="far_aspectRatio" format="fraction" />
     </declare-styleable>
 
     <declare-styleable name="FixedAspectRatioRelativeLayout">

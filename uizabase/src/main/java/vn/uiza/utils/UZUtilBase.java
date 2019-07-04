@@ -2,7 +2,6 @@ package vn.uiza.utils;
 
 import android.content.Context;
 
-import android.util.Log;
 import vn.uiza.core.exception.UZException;
 import vn.uiza.restapi.UZAPIMaster;
 import vn.uiza.restapi.restclient.UZRestClient;
