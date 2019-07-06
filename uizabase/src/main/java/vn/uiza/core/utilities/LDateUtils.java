@@ -1,18 +1,13 @@
 package vn.uiza.core.utilities;
 
+import vn.uiza.core.common.Constants;
+
 import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.Format;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
-import java.util.Locale;
-import java.util.TimeZone;
-
-import vn.uiza.core.common.Constants;
-import vn.uiza.utils.util.SentryUtils;
+import java.util.*;
 
 /**
  * @author Khanh Le
@@ -51,7 +46,6 @@ public class LDateUtils {
         try {
             return dateFormat.parse(text);
         } catch (ParseException e) {
-            SentryUtils.captureException(e);
             return null;
         }
     }
@@ -61,7 +55,6 @@ public class LDateUtils {
         try {
             return dateFormat.format(date);
         } catch (Exception e) {
-            SentryUtils.captureException(e);
             return null;
         }
     }
@@ -133,7 +126,6 @@ public class LDateUtils {
             value = formatter.parse(dateString);
         } catch (ParseException e) {
             e.printStackTrace();
-            SentryUtils.captureException(e);
         }
         SimpleDateFormat dateFormatter = new SimpleDateFormat(format, Locale.ENGLISH);
         dateFormatter.setTimeZone(TimeZone.getDefault());
@@ -148,7 +140,6 @@ public class LDateUtils {
             date = formatter.parse(d);
             return date.getTime() / 1000;
         } catch (ParseException e) {
-            SentryUtils.captureException(e);
             return Constants.NOT_FOUND;
         }
     }
@@ -181,7 +172,6 @@ public class LDateUtils {
             return date.getTime() / 1000;
         } catch (ParseException e) {
             e.printStackTrace();
-            SentryUtils.captureException(e);
             return 0;
         }
     }
@@ -195,7 +185,6 @@ public class LDateUtils {
             long time = date.getTime();
             return time;
         } catch (ParseException e) {
-            SentryUtils.captureException(e);
             return Constants.NOT_FOUND;
         }
     }
@@ -214,7 +203,6 @@ public class LDateUtils {
             cal.setTime(date);
         } catch (ParseException e) {
             e.printStackTrace();
-            SentryUtils.captureException(e);
         }
         return cal;
     }
@@ -228,7 +216,6 @@ public class LDateUtils {
             cal.setTime(date);
         } catch (ParseException e) {
             e.printStackTrace();
-            SentryUtils.captureException(e);
         }
         return cal;
     }

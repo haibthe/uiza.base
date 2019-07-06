@@ -1,10 +1,11 @@
 package vn.uiza.utils.util;
 
+import vn.uiza.core.common.Constants;
+
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.InputStreamReader;
 import java.util.List;
-import vn.uiza.core.common.Constants;
 
 public final class ShellUtils {
 
@@ -71,7 +72,6 @@ public final class ShellUtils {
             }
         } catch (Exception e) {
             e.printStackTrace();
-            SentryUtils.captureException(e);
         } finally {
             CloseUtils.closeIO(os, successResult, errorResult);
             if (process != null) {

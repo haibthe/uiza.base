@@ -9,16 +9,12 @@ import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.view.View;
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.io.UnsupportedEncodingException;
-import java.text.DecimalFormat;
-import java.util.Locale;
 import vn.uiza.utils.constant.MemoryConstants;
 import vn.uiza.utils.constant.TimeConstants;
+
+import java.io.*;
+import java.text.DecimalFormat;
+import java.util.Locale;
 
 
 public final class ConvertUtils {
@@ -163,7 +159,6 @@ public final class ConvertUtils {
             return os;
         } catch (IOException e) {
             e.printStackTrace();
-            SentryUtils.captureException(e);
             return null;
         } finally {
             CloseUtils.closeIO(is);
@@ -199,7 +194,6 @@ public final class ConvertUtils {
             return os;
         } catch (IOException e) {
             e.printStackTrace();
-            SentryUtils.captureException(e);
             return null;
         } finally {
             CloseUtils.closeIO(os);
@@ -212,7 +206,6 @@ public final class ConvertUtils {
             return new String(inputStream2Bytes(is), charsetName);
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
-            SentryUtils.captureException(e);
             return null;
         }
     }
@@ -223,7 +216,6 @@ public final class ConvertUtils {
             return new ByteArrayInputStream(string.getBytes(charsetName));
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
-            SentryUtils.captureException(e);
             return null;
         }
     }
@@ -234,7 +226,6 @@ public final class ConvertUtils {
             return new String(outputStream2Bytes(out), charsetName);
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
-            SentryUtils.captureException(e);
             return null;
         }
     }
@@ -245,7 +236,6 @@ public final class ConvertUtils {
             return bytes2OutputStream(string.getBytes(charsetName));
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
-            SentryUtils.captureException(e);
             return null;
         }
     }

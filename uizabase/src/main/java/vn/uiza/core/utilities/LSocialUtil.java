@@ -11,8 +11,6 @@ import vn.uiza.R;
 import vn.uiza.core.common.Constants;
 import vn.uiza.core.exception.UZException;
 import vn.uiza.utils.util.AppUtils;
-import vn.uiza.utils.util.SentryUtils;
-import vn.uiza.views.LToast;
 
 
 /**
@@ -40,7 +38,6 @@ public class LSocialUtil {
         } catch (android.content.ActivityNotFoundException anfe) {
             activity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(
                     PLAY_STORE_DETAIL_URI + packageName)));
-            SentryUtils.captureException(anfe);
         }
     }
 
@@ -58,7 +55,6 @@ public class LSocialUtil {
             intent.putExtra(Intent.EXTRA_TEXT, msg);
             activity.startActivity(Intent.createChooser(intent, SHARE_TITLE));
         } catch (Exception e) {
-            SentryUtils.captureException(e);
         }
     }
 
@@ -73,7 +69,7 @@ public class LSocialUtil {
             intent.setPackage(application);
             activity.startActivity(intent);
         } else {
-            LToast.show(activity, activity.getString(R.string.can_not_find_share_app));
+//            LToast.show(activity, activity.getString(R.string.can_not_find_share_app));
         }
     }
 
@@ -83,7 +79,6 @@ public class LSocialUtil {
             pm.getPackageInfo(uri, PackageManager.GET_ACTIVITIES);
             return true;
         } catch (PackageManager.NameNotFoundException e) {
-            SentryUtils.captureException(e);
         }
 
         return false;
@@ -109,7 +104,6 @@ public class LSocialUtil {
                 return FB_PAGE_URI + fbFanPageId;
             }
         } catch (PackageManager.NameNotFoundException e) {
-            SentryUtils.captureException(e);
             if (fbFanPageUrl != null)
                 return fbFanPageUrl;
             else return fbFanPageId;
@@ -123,7 +117,6 @@ public class LSocialUtil {
             int versionCode = packageManager.getPackageInfo(FB_MESSENGER_PACKAGE, 0).versionCode;
             if (versionCode >= 0) isFBInstalled = true;
         } catch (PackageManager.NameNotFoundException e) {
-            SentryUtils.captureException(e);
         }
         if (!isFBInstalled) {
             LDialogUtil.showDialog1(activity, activity.getString(R.string.error), UZException.ERR_22, activity.getString(R.string.ok), null);
@@ -135,7 +128,6 @@ public class LSocialUtil {
                 activity.startActivity(intent);
             } catch (Exception e) {
                 LDialogUtil.showDialog1(activity, UZException.ERR_20, UZException.ERR_22, activity.getString(R.string.ok), null);
-                SentryUtils.captureException(e);
             }
         }
     }

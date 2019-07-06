@@ -11,9 +11,6 @@ import android.net.Uri;
 import android.os.Build;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.AppCompatActivity;
 import android.util.DisplayMetrics;
 import android.view.Display;
 import android.view.KeyCharacterMap;
@@ -26,7 +23,6 @@ import android.view.WindowManager;
 
 import vn.uiza.R;
 import vn.uiza.core.common.Constants;
-import vn.uiza.utils.util.SentryUtils;
 
 /**
  * File created on 8/31/2017.
@@ -243,47 +239,6 @@ public class LScreenUtil {
         }
     }
 
-    public static void replaceFragment(Fragment baseFragment, int containerFrameLayoutIdRes, Fragment fragment, boolean isAddToBackStack) {
-        FragmentTransaction transaction = baseFragment.getChildFragmentManager().beginTransaction();
-        transaction.setCustomAnimations(R.anim.fade_enter, R.anim.fade_exit, R.anim.fade_enter, R.anim.fade_exit);
-        transaction.replace(containerFrameLayoutIdRes, fragment);
-        if (isAddToBackStack) {
-            transaction.addToBackStack(null);
-        }
-        transaction.commit();
-    }
-
-    public static void replaceFragment(AppCompatActivity activity, int containerFrameLayoutIdRes, Fragment fragment, boolean isAddToBackStack) {
-        FragmentTransaction transaction = activity.getSupportFragmentManager().beginTransaction();
-        transaction.replace(containerFrameLayoutIdRes, fragment);
-        if (isAddToBackStack) {
-            transaction.addToBackStack(null);
-        }
-        transaction.commit();
-    }
-
-    public void loadFragment(AppCompatActivity activity, int containerFrameLayoutIdRes, final Fragment fragment) {
-        final FragmentTransaction transaction = activity.getSupportFragmentManager().beginTransaction();
-        transaction.replace(containerFrameLayoutIdRes, fragment);
-        transaction.addToBackStack(fragment.getClass().getName());
-        transaction.commit();
-    }
-
-    public void backToFragment(AppCompatActivity activity, final Fragment fragment) {
-        activity.getSupportFragmentManager().popBackStackImmediate(fragment.getClass().getName(), 0);
-        // use 0 or the below constant as flag parameter
-        // FragmentManager.POP_BACK_STACK_INCLUSIVE);
-
-    }
-
-    public static void addFragment(AppCompatActivity activity, int containerFrameLayoutIdRes, Fragment fragment, boolean isAddToBackStack) {
-        FragmentTransaction transaction = activity.getSupportFragmentManager().beginTransaction();
-        transaction.add(containerFrameLayoutIdRes, fragment);
-        if (isAddToBackStack) {
-            transaction.addToBackStack(null);
-        }
-        transaction.commit();
-    }
 
     public static boolean isFullScreen(Context context) {
         final int rotation = ((WindowManager) context.getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay().getOrientation();
@@ -370,7 +325,6 @@ public class LScreenUtil {
             return android.provider.Settings.System.getInt(context.getContentResolver(), android.provider.Settings.System.SCREEN_BRIGHTNESS, Constants.NOT_FOUND);
         } catch (Exception e) {
             LLog.e(TAG, "getCurrentBrightness" + e.toString());
-            SentryUtils.captureException(e);
             return Constants.NOT_FOUND;
         }
     }

@@ -1,32 +1,16 @@
 package vn.uiza.utils.util;
 
 import android.annotation.SuppressLint;
+import vn.uiza.core.common.Constants;
+import vn.uiza.utils.constant.MemoryConstants;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.FilenameFilter;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
+import java.io.*;
 import java.security.DigestInputStream;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-
-import vn.uiza.core.common.Constants;
-import vn.uiza.utils.constant.MemoryConstants;
 
 public final class FileUtils {
 
@@ -96,7 +80,6 @@ public final class FileUtils {
             return file.createNewFile();
         } catch (IOException e) {
             e.printStackTrace();
-            SentryUtils.captureException(e);
             return false;
         }
     }
@@ -113,7 +96,6 @@ public final class FileUtils {
             return file.createNewFile();
         } catch (IOException e) {
             e.printStackTrace();
-            SentryUtils.captureException(e);
             return false;
         }
     }
@@ -155,7 +137,6 @@ public final class FileUtils {
                     && !(isMove && !deleteFile(srcFile));
         } catch (FileNotFoundException e) {
             e.printStackTrace();
-            SentryUtils.captureException(e);
             return false;
         }
     }
@@ -407,7 +388,6 @@ public final class FileUtils {
             return true;
         } catch (IOException e) {
             e.printStackTrace();
-            SentryUtils.captureException(e);
             return false;
         } finally {
             CloseUtils.closeIO(is, os);
@@ -428,7 +408,6 @@ public final class FileUtils {
             return true;
         } catch (IOException e) {
             e.printStackTrace();
-            SentryUtils.captureException(e);
             return false;
         } finally {
             CloseUtils.closeIO(bw);
@@ -471,7 +450,6 @@ public final class FileUtils {
             return list;
         } catch (IOException e) {
             e.printStackTrace();
-            SentryUtils.captureException(e);
             return null;
         } finally {
             CloseUtils.closeIO(reader);
@@ -499,7 +477,6 @@ public final class FileUtils {
             return sb.delete(sb.length() - 2, sb.length()).toString();
         } catch (IOException e) {
             e.printStackTrace();
-            SentryUtils.captureException(e);
             return null;
         } finally {
             CloseUtils.closeIO(reader);
@@ -516,7 +493,6 @@ public final class FileUtils {
             return inputStream2Bytes(new FileInputStream(file));
         } catch (FileNotFoundException e) {
             e.printStackTrace();
-            SentryUtils.captureException(e);
             return null;
         }
     }
@@ -543,7 +519,6 @@ public final class FileUtils {
             p = (is.read() << 8) + is.read();
         } catch (IOException e) {
             e.printStackTrace();
-            SentryUtils.captureException(e);
         } finally {
             CloseUtils.closeIO(is);
         }
@@ -577,7 +552,6 @@ public final class FileUtils {
             }
         } catch (IOException e) {
             e.printStackTrace();
-            SentryUtils.captureException(e);
         } finally {
             CloseUtils.closeIO(is);
         }
@@ -659,7 +633,6 @@ public final class FileUtils {
             return md.digest();
         } catch (NoSuchAlgorithmException | IOException e) {
             e.printStackTrace();
-            SentryUtils.captureException(e);
         } finally {
             CloseUtils.closeIO(dis);
         }
@@ -740,7 +713,6 @@ public final class FileUtils {
             return os;
         } catch (IOException e) {
             e.printStackTrace();
-            SentryUtils.captureException(e);
             return null;
         } finally {
             CloseUtils.closeIO(is);

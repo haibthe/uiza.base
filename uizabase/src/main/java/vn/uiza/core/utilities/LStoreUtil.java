@@ -6,21 +6,11 @@ import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Environment;
 import android.os.StatFs;
-import android.support.annotation.NonNull;
+import vn.uiza.utils.util.CloseUtils;
 
-import java.io.BufferedReader;
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.FileReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.net.URL;
 import java.util.Random;
-
-import vn.uiza.utils.util.CloseUtils;
-import vn.uiza.utils.util.SentryUtils;
 
 public class LStoreUtil {
     private static String TAG = LStoreUtil.class.getSimpleName();
@@ -48,7 +38,6 @@ public class LStoreUtil {
                 }
             } catch (Exception e) {
                 LLog.d("TAG", "if getFolderPath: " + e.toString());
-                SentryUtils.captureException(e);
             }
             folderPath = Environment.getExternalStorageDirectory().getPath() + SLASH + folderName + SLASH;
         } else {
@@ -62,7 +51,6 @@ public class LStoreUtil {
                 }
             } catch (Exception e) {
                 LLog.d("TAG", "else getFolderPath: " + e.toString());
-                SentryUtils.captureException(e);
             }
         }
         return folderPath;
@@ -111,7 +99,6 @@ public class LStoreUtil {
         } catch (IOException e) {
             LLog.d(TAG, e.toString());
             isComplete = false;
-            SentryUtils.captureException(e);
         } finally {
             CloseUtils.closeIO(fos);
         }
@@ -156,7 +143,6 @@ public class LStoreUtil {
             reader.close();
         } catch (IOException e) {
             LLog.d(TAG, "readTxtFromFolder===" + e.toString());
-            SentryUtils.captureException(e);
         } finally {
             CloseUtils.closeIO(reader);
         }
@@ -218,7 +204,6 @@ public class LStoreUtil {
                 } catch (IOException e) {
                     runTaskSuccess = false;
                     LLog.d(TAG, "readTxtFromFolder===" + e.toString());
-                    SentryUtils.captureException(e);
                 } finally {
                     CloseUtils.closeIO(reader);
                 }
@@ -253,7 +238,6 @@ public class LStoreUtil {
             inputStream.close();
         } catch (Exception e) {
             LLog.d(TAG, e.toString());
-            SentryUtils.captureException(e);
         } finally {
             CloseUtils.closeIO(inputStream);
         }
@@ -300,7 +284,6 @@ public class LStoreUtil {
             writeToFile((Activity) context, folderName, fileName, stringBuilder.toString());
             state = true;
         } catch (Exception e) {
-            SentryUtils.captureException(e);
         } finally {
             CloseUtils.closeIO(br, is);
         }

@@ -102,7 +102,6 @@ public final class AppUtils {
             return pi == null ? null : pi.applicationInfo.loadLabel(pm).toString();
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
-            SentryUtils.captureException(e);
             return null;
         }
     }
@@ -119,7 +118,6 @@ public final class AppUtils {
             return pi == null ? null : pi.applicationInfo.loadIcon(pm);
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
-            SentryUtils.captureException(e);
             return null;
         }
     }
@@ -136,7 +134,6 @@ public final class AppUtils {
             return pi == null ? null : pi.applicationInfo.sourceDir;
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
-            SentryUtils.captureException(e);
             return null;
         }
     }
@@ -153,7 +150,6 @@ public final class AppUtils {
             return pi == null ? null : pi.versionName;
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
-            SentryUtils.captureException(e);
             return null;
         }
     }
@@ -170,7 +166,6 @@ public final class AppUtils {
             return pi == null ? -1 : pi.versionCode;
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
-            SentryUtils.captureException(e);
             return -1;
         }
     }
@@ -187,7 +182,6 @@ public final class AppUtils {
             return ai != null && (ai.flags & ApplicationInfo.FLAG_SYSTEM) != 0;
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
-            SentryUtils.captureException(e);
             return false;
         }
     }
@@ -204,7 +198,6 @@ public final class AppUtils {
             return ai != null && (ai.flags & ApplicationInfo.FLAG_DEBUGGABLE) != 0;
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
-            SentryUtils.captureException(e);
             return false;
         }
     }
@@ -229,7 +222,6 @@ public final class AppUtils {
             return pi == null ? null : pi.signatures;
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
-            SentryUtils.captureException(e);
             return null;
         }
     }
@@ -349,7 +341,6 @@ public final class AppUtils {
             return getBean(pm, pi);
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
-            SentryUtils.captureException(e);
             return null;
         }
     }
