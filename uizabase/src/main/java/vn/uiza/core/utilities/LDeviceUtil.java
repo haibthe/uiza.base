@@ -11,9 +11,11 @@ import android.os.Vibrator;
 import android.provider.Settings;
 import android.view.KeyCharacterMap;
 import android.view.KeyEvent;
-import android.widget.Toast;
 
 import java.util.Random;
+
+import vn.uiza.utils.util.SentryUtils;
+import vn.uiza.views.LToast;
 
 import static android.content.Context.UI_MODE_SERVICE;
 
@@ -44,6 +46,7 @@ public class LDeviceUtil {
             thisVersion = pi.versionCode;
         } catch (PackageManager.NameNotFoundException e) {
             thisVersion = 1;
+            SentryUtils.captureException(e);
         }
         return thisVersion;
     }
@@ -57,7 +60,7 @@ public class LDeviceUtil {
             android.content.ClipData clip = android.content.ClipData.newPlainText(COPY_LABEL, text);
             clipboard.setPrimaryClip(clip);
         }
-        Toast.makeText(context, "Copy!", Toast.LENGTH_LONG).show();
+        LToast.show(context, "Copied!");
     }
 
     public static void vibrate(Context context, int length) {

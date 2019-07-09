@@ -1,6 +1,6 @@
 package vn.uiza.data;
 
-//import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.EventBus;
 
 /**
  * Created by www.muathu@gmail.com on 10/21/2017.
@@ -62,6 +62,6 @@ public class EventBusData {
         connectEvent.setConnectedFast(isConnectedFast);
         connectEvent.setConnectedWifi(isConnectedWifi);
         connectEvent.setConnectedMobile(isConnectedMobile);
-//        EventBus.getDefault().postSticky(connectEvent);
+        EventBus.getDefault().postSticky(connectEvent);
     }
 }
