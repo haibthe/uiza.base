@@ -24,6 +24,7 @@ public final class EncodeUtils {
 
     /**
      * URL编码
+     * <p>若想自己指定字符集,可以使用{@link #urlEncode(String input, String charset)}方法</p>
      *
      * @param input 要编码的字符
      * @return 编码为UTF-8的字符串
@@ -44,12 +45,14 @@ public final class EncodeUtils {
         try {
             return URLEncoder.encode(input, charset);
         } catch (UnsupportedEncodingException e) {
+            SentryUtils.captureException(e);
             return input;
         }
     }
 
     /**
      * URL解码
+     * <p>若想自己指定字符集,可以使用 {@link #urlDecode(String input, String charset)}方法</p>
      *
      * @param input 要解码的字符串
      * @return URL解码后的字符串
@@ -70,6 +73,7 @@ public final class EncodeUtils {
         try {
             return URLDecoder.decode(input, charset);
         } catch (UnsupportedEncodingException e) {
+            SentryUtils.captureException(e);
             return input;
         }
     }

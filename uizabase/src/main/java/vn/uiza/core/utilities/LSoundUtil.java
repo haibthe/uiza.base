@@ -5,6 +5,7 @@ import android.content.res.AssetFileDescriptor;
 import android.media.MediaPlayer;
 
 import java.io.IOException;
+import vn.uiza.utils.util.SentryUtils;
 
 /**
  * Created by www.muathu@gmail.com on 6/1/2017.
@@ -33,6 +34,7 @@ public class LSoundUtil {
                 }
             });
         } catch (IOException e) {
+            SentryUtils.captureException(e);
         }
     }
 }

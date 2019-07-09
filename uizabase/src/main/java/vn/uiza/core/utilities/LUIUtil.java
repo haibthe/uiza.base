@@ -2,8 +2,17 @@ package vn.uiza.core.utilities;
 
 import android.app.Activity;
 import android.content.Context;
-import android.graphics.*;
-import android.graphics.drawable.*;
+import android.graphics.Color;
+import android.graphics.LinearGradient;
+import android.graphics.Paint;
+import android.graphics.PorterDuff;
+import android.graphics.Shader;
+import android.graphics.Typeface;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.GradientDrawable;
+import android.graphics.drawable.LayerDrawable;
+import android.graphics.drawable.PaintDrawable;
+import android.graphics.drawable.ShapeDrawable;
 import android.graphics.drawable.shapes.RectShape;
 import android.os.Build;
 import android.os.Handler;
@@ -13,20 +22,31 @@ import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.SearchView;
 import android.text.Html;
+import android.text.Spannable;
 import android.text.SpannableStringBuilder;
 import android.text.TextUtils;
+import android.text.style.ImageSpan;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
-import android.widget.*;
+import android.widget.EditText;
+import android.widget.FrameLayout;
+import android.widget.ImageView;
+import android.widget.ProgressBar;
+import android.widget.SeekBar;
+import android.widget.TextView;
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import vn.uiza.utils.util.ConvertUtils;
 
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Random;
+
+import vn.uiza.R;
+import vn.uiza.utils.util.ConvertUtils;
+import vn.uiza.utils.util.SentryUtils;
 
 /**
  * File created on 11/3/2016.
@@ -72,6 +92,7 @@ public class LUIUtil {
             view.setBackgroundDrawable(createGradientDrawableWithColor(colorMain, colorStroke));
         } catch (Exception e) {
             LLog.d(TAG, "setCircleViewWithColor setBkgColor: " + e.toString());
+            SentryUtils.captureException(e);
         }
     }
 
@@ -115,6 +136,7 @@ public class LUIUtil {
                 }
             } catch (Exception e) {
                 LLog.d(TAG, "setImageFromAsset: " + e.toString());
+                SentryUtils.captureException(e);
             } finally {
                 try {
                     if (stream != null) {
@@ -122,6 +144,7 @@ public class LUIUtil {
                     }
                 } catch (Exception e) {
                     LLog.d(TAG, "setImageFromAsset: " + e.toString());
+                    SentryUtils.captureException(e);
                 }
             }
         }
@@ -184,7 +207,7 @@ public class LUIUtil {
 
         EditText searchEditText = searchView.findViewById(android.support.v7.appcompat.R.id.search_src_text);
         searchEditText.setTextColor(Color.WHITE);
-//        searchEditText.setHintTextColor(ContextCompat.getColor(context, R.color.LightGrey));
+        searchEditText.setHintTextColor(ContextCompat.getColor(context, R.color.LightGrey));
 
         SpannableStringBuilder ssb = new SpannableStringBuilder("   ");
         if (hintText != null) {
@@ -193,14 +216,14 @@ public class LUIUtil {
             ssb.append("Mínim 3 caràcters...");
         }
 
-//        Drawable searchIcon = ContextCompat.getDrawable(context, R.drawable.search_color);
-//        int textSize = (int) (searchEditText.getTextSize() * 1.05);
-//        searchIcon.setBounds(0, 0, textSize, textSize);
-//        ssb.setSpan(new ImageSpan(searchIcon), 1, 2, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-//        searchEditText.setHint(ssb);
-//
-//        ImageView close = searchView.findViewById(android.support.v7.appcompat.R.id.search_close_btn);
-//        close.setImageResource(R.drawable.ic_close_black_48dp);
+        Drawable searchIcon = ContextCompat.getDrawable(context, R.drawable.search_color);
+        int textSize = (int) (searchEditText.getTextSize() * 1.05);
+        searchIcon.setBounds(0, 0, textSize, textSize);
+        ssb.setSpan(new ImageSpan(searchIcon), 1, 2, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        searchEditText.setHint(ssb);
+
+        ImageView close = searchView.findViewById(android.support.v7.appcompat.R.id.search_close_btn);
+        close.setImageResource(R.drawable.ic_close_black_48dp);
 
         return searchView;
     }
@@ -209,13 +232,13 @@ public class LUIUtil {
         if (swipeRefreshLayout == null) {
             return;
         }
-//        swipeRefreshLayout.setColorSchemeResources(
-//                R.color.colorPrimary,
-//                R.color.vip1,
-//                R.color.vip2,
-//                R.color.vip3,
-//                R.color.vip4,
-//                R.color.vip5);
+        swipeRefreshLayout.setColorSchemeResources(
+                R.color.colorPrimary,
+                R.color.vip1,
+                R.color.vip2,
+                R.color.vip3,
+                R.color.vip4,
+                R.color.vip5);
     }
 
     public static void setTextShadow(TextView textView) {
@@ -245,19 +268,19 @@ public class LUIUtil {
     }
 
     private static int[] colors = {
-//            R.color.LightBlue,
-//            R.color.LightCoral,
-//            R.color.LightCyan,
-//            R.color.LightGoldenrodYellow,
-//            R.color.LightGreen,
-//            R.color.LightGrey,
-//            R.color.LightPink,
-//            R.color.LightSalmon,
-//            R.color.LightSeaGreen,
-//            R.color.LightSlateGray,
-//            R.color.LightSteelBlue,
-//            R.color.LightYellow,
-//            R.color.LightSkyBlue
+            R.color.LightBlue,
+            R.color.LightCoral,
+            R.color.LightCyan,
+            R.color.LightGoldenrodYellow,
+            R.color.LightGreen,
+            R.color.LightGrey,
+            R.color.LightPink,
+            R.color.LightSalmon,
+            R.color.LightSeaGreen,
+            R.color.LightSlateGray,
+            R.color.LightSteelBlue,
+            R.color.LightYellow,
+            R.color.LightSkyBlue
     };
 
     public static int getColor(Context context) {
